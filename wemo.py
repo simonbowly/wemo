@@ -80,7 +80,9 @@ def formulate_request(host, service, field, set_value=None, port=49153):
 
 
 def get_field(device_ip, service, field, **kwargs):
-    # TODO make aiohttp request variants
+    # @todo Add an async API for all requests using aiohttp
+    # @body Extract common request formulation and parsing, replace requests
+    # with an aiohttp client.
     request = formulate_request(device_ip, service, field, **kwargs)
     response = requests.post(**request)
     dom = parseString(response.text)
