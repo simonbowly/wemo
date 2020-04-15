@@ -15,7 +15,7 @@ GETINSIGHTPARAMS_FIELDS = [
     "on_today_seconds",
     "on_total_seconds",
     "time_period",  # The period over which averages are calculated?
-    "unknown",
+    "unknown",  # No clue what this field actually is?
     "current_power_mw",
     "today_mw",
     "total_mw",
@@ -97,6 +97,7 @@ def set_field(device_ip, service, field, value, **kwargs):
 
 
 def get_insight_info(device_ip):
+    """Return a dictionary of live values of all the insight fields."""
     data = get_field(device_ip, service="insight", field="InsightParams")
     return parse_insight_data(data)
 
@@ -115,12 +116,14 @@ def is_switched_on(device_ip: str):
 
 @click.group()
 def cli():
+    """Control a WEMO insight device or get its current power usage."""
     pass
 
 
 @cli.command()
 @click.argument("device-ip")
 def info(device_ip):
+    """Get and print live data from WEMO Insight with the given IP address."""
     pprint(get_insight_info(device_ip))
 
 
@@ -128,6 +131,7 @@ def info(device_ip):
 @click.argument("device-ip")
 @click.argument("command", type=click.Choice(["on", "off"]))
 def control(device_ip, command):
+    """Switch the WEMO insight with the given IP address on/off."""
     switched_on = is_switched_on(device_ip)
     if command == "on" and not switched_on:
         click.echo(f"Switching on wemo@{device_ip}")

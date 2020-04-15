@@ -3,7 +3,7 @@
 
 Just a little control/query CLI so far:
 
-* Get current state, load, time-on  `python wemo.py info <device_ip> on`
+* Get current state, load, time-on  `python wemo.py info <device_ip>`
 * Switch on `python wemo.py control <device_ip> on`
 * Switch off `python wemo.py control <device_ip> off`
 
